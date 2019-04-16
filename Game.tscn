@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Background.gd" type="Script" id=1]
+[ext_resource path="res://Stairwell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Dragon.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Fire Breath.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/Defeated.png" type="Texture" id=6]
+[ext_resource path="res://Assets/You Win.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sound/Music.ogg" type="AudioStream" id=8]
+
+[sub_resource type="PhysicsMaterial" id=1]
+rough = true
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 387.135, 400 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 886.535, 348.137 )
+
+[node name="Game" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+show_behind_parent = true
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="Dragon Health" type="ColorRect" parent="ColorRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -200.0
+margin_bottom = 40.0
+color = Color( 0.054902, 1, 0, 1 )
+
+[node name="Label" type="Label" parent="ColorRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -58.0
+margin_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "DAGRON"
+align = 3
+valign = 3
+
+[node name="Knight Health" type="ColorRect" parent="ColorRect"]
+margin_right = 200.0
+margin_bottom = 40.0
+color = Color( 1, 0, 0, 1 )
+
+[node name="Label2" type="Label" parent="ColorRect"]
+margin_right = 58.0
+margin_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "BJÖRN"
+align = 3
+valign = 3
+
+[node name="Stairwell" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 300 )
+vertical_step = 35.0
+rotation_speed = 1000.0
+
+[node name="Dragon" parent="." instance=ExtResource( 3 )]
+position = Vector2( 792.206, 173.344 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 139.657, 183.813 )
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+editor/display_folded = true
+collision_layer = 4
+physics_material_override = SubResource( 1 )
+
+[node name="Right" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2( 1410.8, 201.33 )
+shape = SubResource( 2 )
+
+[node name="Left" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2( -379.131, 192.979 )
+shape = SubResource( 2 )
+
+[node name="Top" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2( 517.292, -510.654 )
+shape = SubResource( 3 )
+
+[node name="Bottom" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2( 502.779, 917.123 )
+shape = SubResource( 3 )
+
+[node name="Fire Breath" parent="." instance=ExtResource( 5 )]
+position = Vector2( 408.106, -349.805 )
+
+[node name="Defeat" type="Sprite" parent="."]
+visible = false
+position = Vector2( 509.399, 304.344 )
+z_index = 100
+texture = ExtResource( 6 )
+
+[node name="Victory" type="Sprite" parent="."]
+visible = false
+position = Vector2( 537.459, 319.454 )
+z_index = 100
+texture = ExtResource( 7 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+volume_db = -30.0
+autoplay = true
+

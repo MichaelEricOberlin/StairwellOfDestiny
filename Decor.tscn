@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Decor.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Painting.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Wall Torch.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Cross Swords.png" type="Texture" id=4]
+
+[node name="Decor" type="Node2D"]
+scale = Vector2( 0.75, 0.75 )
+script = ExtResource( 1 )
+images = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+autostart = true
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="viewport_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_viewport_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
